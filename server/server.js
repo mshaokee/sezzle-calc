@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const socket = require("socket.io");
 
 const serviceAccount = require("../serviceAccountKey.json");
 
@@ -17,8 +18,14 @@ const port = process.env.PORT || 5000;
 const server = app.listen(port);
 
 //WebSocket with socket.io
-const io = require('socket.io').listen(server)
-io.origins("*:*")
+// const io = require('socket.io').listen(server);
+// io.origins("*:*");
+// io.on('connection', socket => {
+//     socket.on('new result', function (msg) {
+//         io.emit('rerender', msg);
+//     });
+// });//end
+const io = socket(server);
 io.on('connection', socket => {
     socket.on('new result', function (msg) {
         io.emit('rerender', msg);
@@ -28,11 +35,6 @@ io.on('connection', socket => {
 //Static files from React
 app.use(express.static('public'));
 app.unsubscribe(bodyParser.json());
-
-//TEST ROUTE
-app.get('/', (req, res) => {
-    db.ref().once('value').then(snapshot => res.json(snapshot));
-});
 
 //GET Route
 app.get('/history', (req, res) => {
@@ -55,8 +57,8 @@ app.post(`/history`, (req, res) => {
     //set time and value from data
     const recordTime = req.body['time']
     const recordVal = req.body['value']
-    //find /records api and push data
-    db.ref('/records').push({
+    //find /history api and push data
+    db.ref('/history').push({
         "timeStamp": recordTime,
         "value": recordVal
     });//end
