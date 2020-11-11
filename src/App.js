@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
+//import components
+import Header from './components/Header';
+import Calculator from './components/Calculator';
+import History from './components/History';
 
 class App extends Component {
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="App">
-        <p>HELLO WORLD</p>
+        <Header />
+        {/* calculator components */}
+        <div>
+          <Calculator />
+        </div>
+        <div>
+          <History />
+        </div>
       </div>
     )
   }
