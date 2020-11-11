@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 
 class Answers extends Component {
+    
     render() {
         return (
             <div>
-                <p>Answers</p>
+                <Typography>Answers</Typography>
             </div>
         )
     }

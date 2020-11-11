@@ -4,6 +4,7 @@ import Keypad from './Keypad';
 import Answers from './Answers';
 
 class Calculator extends Component {
+    
     render(){
         return(
             <div>
