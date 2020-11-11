@@ -4,6 +4,9 @@ import './App.css';
 import Header from './components/Header';
 import Calculator from './components/Calculator';
 import History from './components/History';
+//import WebSocket
+import socketIOClient from 'socket.io-client';
+const socket = socketIOClient();
 
 class App extends Component {
 
@@ -13,13 +16,19 @@ class App extends Component {
     this.state = {
       history: [],
       answers: '',
-    }
+    };//end state
+    socket.on(
+      'rerender', (msg) => {
+        this.getHistory();
+      }
+    );//end socket
   };//end constructor
 
   componentDidMount() {
     console.log('App mounted.');
-    console.log('history:', this.state.history, ' and answers:', this.state.answers);
-    
+    console.log('history:', this.state.history, ' and answers:', this.state.answers); 
+    //get all history from db
+    this.getHistory();
   };//end
 
   //handleClick function for buttons
@@ -37,6 +46,11 @@ class App extends Component {
     }
   };//end handleClick
 
+  send = () => {
+    //emit sends data to all live clients
+    socket.emit('new answer');
+  };//end send function
+
   calc = () => {
     let answer = '';
     try {
@@ -46,6 +60,8 @@ class App extends Component {
     };//end try
     if (answer !== "ERROR") {
       //POST TO SERVER
+      this.postHistory(answer);
+      this.send();
     }
     this.setState({answers: answer});
   };//end calculate function
@@ -62,6 +78,29 @@ class App extends Component {
       answers: `${prevState.answers}${button}`,
     }));
   };//end appendInput function
+
+  getHistory = () => {
+    //fetch data at /history, respond json and set to objects to state
+    fetch('/history').then((res) => res.json()).then((history) => this.setState({history}));
+  };//end getHistory
+
+  postHistory = (answers) => {
+    const reverseTime = 1000000000000 - new Date().getTime();
+    //post to history, send body of time and answers value
+    fetch("/history", {
+      method: "POST",
+      body: JSON.stringify({
+        time: reverseTime,
+        value: `${this.state.answers}=${answers}`,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json)
+      //refresh when all done
+      .then(this.getAllRecords());
+  };//end postHistory
 
   render() {
     return (
