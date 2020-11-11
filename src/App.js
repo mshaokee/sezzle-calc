@@ -7,7 +7,7 @@ import History from './components/History';
 
 class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     //set state array for history and answers that will be send down through props
     this.state = {
@@ -16,44 +16,50 @@ class App extends Component {
     }
   };//end constructor
 
-  componentDidMount(){
+  componentDidMount() {
     console.log('App mounted.');
+    console.log('history:', this.state.history, ' and answers:', this.state.answers);
+    
   };//end
-  
+
   //handleClick function for buttons
   handleClick = (button) => {
-    if (button === '='){
-      //if button equal to = do calc function
+    console.log('clicked:', button);
+    if (button === '=') {
+      //if button set to = do calc function
       this.calc();
     } else if (button === 'CLEAR') {
-      //if button equal to CLEAR clear function
+      //if button set to CLEAR clear function
       this.clear();
     } else {
+      //if button not set to above do appendInput function, send button to function
       this.appendInput(button);
     }
   };//end handleClick
 
-  calculate = () => {
+  calc = () => {
     let answer = '';
     try {
       answer = eval(this.state.answers);
     } catch (err) {
       answer = "ERROR";
     };//end try
-    if (answer !== "ERROR"){
+    if (answer !== "ERROR") {
       //POST TO SERVER
     }
+    this.setState({answers: answer});
   };//end calculate function
 
   clear = () => {
     //when called set answers state to empty
-    this.setState({answers: ''})
+    this.setState({ answers: '' })
   };//end clear function
 
   appendInput = (button) => {
     //setState to previous state and operator
     this.setState((prevState) => ({
-      answers: `${prevState.results}${button}`,
+      // show equation, previous number + number = etc...
+      answers: `${prevState.answers}${button}`,
     }));
   };//end appendInput function
 
@@ -63,10 +69,12 @@ class App extends Component {
         <Header />
         {/* calculator components */}
         <div>
-          <Calculator />
+          {/* send handleClick down as props along with answers state */}
+          <Calculator handleClick={this.handleClick} answers={this.state.answers} />
         </div>
         <div>
-          <History />
+          {/* send history state down as props */}
+          <History history={this.state.history} />
         </div>
       </div>
     )

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
 
 class Answers extends Component {
-    
+
     render() {
         return (
             <div>
-                <Typography>Answers</Typography>
+                {/* if this.props.answers is equal to '' display 0 otherwise show answer*/}
+                <Typography>Answers: {this.props.answers === '' ? 0 : this.props.answer}</Typography>
             </div>
         )
     }
