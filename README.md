@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Realtime Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Summary
+The goal is to build a calculator app that updates immediately upon calculation. The updates should be seen in cases where user A or B can be connected from different sources. Results should remain between sessions as well and only show 10 latest calculations. The application must also be uploaded and hosted so that others may view it.
 
-## Available Scripts
+## NOTES - Current 11/11/2020
 
-In the project directory, you can run:
+App does not currently work -- while building this project I ran into "Segmentation faults" and "mollac" errors upon spinning up the server and it would not start not allowing me to test the application full stack. Calculator operates but connection to Firebase/Socket.io does not at this time.
 
-### `npm start`
+## Prerequisites
+Software required to run this application:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* [Node.js](https://nodejs.org/en/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installations
 
-### `npm test`
+1.) Open source code editor and run ```npm install```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.) Head to [Firebase](https://firebase.google.com/) and create a project to set up your database.
 
-### `npm run build`
+3.) At the Firebase console, click 'Project Settings' -> 'Service accounts' -> 'Generate new private key' and paste the data in a created serviceAccountKey.json file.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4.) Copy the Admin SDK configuration snippet data and replace with current data in the server/server.js file to match your Firebase data.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5.) Run ```npm run server``` in your terminal and then run ```npm run client``` (this spins up the server and opens the browser at localhost:3000).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Built with
 
-### `npm run eject`
+* React.js
+* Firebase(google)
+* Express.js
+* Node.js
+* Socket.io
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
