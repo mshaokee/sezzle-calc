@@ -6,20 +6,19 @@ class Keypad extends Component {
     componentDidMount() {
     };
 
+    //note event.target.name was not working so had to be specifc
     render() {
         return (
             <div>
                 {/* clear button */}
                 <div>
-                    <Button variant="contained" name="CLEAR" onClick={() => this.props.handleClick('CLEAR')}>CLEAR</Button>
+                    <Button variant="contained" onClick={() => this.props.handleClick('CLEAR')}>CLEAR</Button>
                 </div>
                 {/* 7, 8, 9 + */}
-
                 <Button variant="contained" onClick={() => this.props.handleClick('7')}>7</Button>
                 <Button variant="contained" onClick={() => this.props.handleClick('8')}>8</Button>
                 <Button variant="contained" onClick={() => this.props.handleClick('9')}>9</Button>
                 <Button variant="contained" onClick={() => this.props.handleClick('+')}>+</Button>
-
                 {/* 4, 5, 6, * */}
                 <div>
                     <Button variant="contained" onClick={() => this.props.handleClick('4')}>4</Button>
